@@ -1,0 +1,25 @@
+<nav class="navbar bg-primary" >
+    <h1 [routerLink]="['/']"> Yury's and friends blog (admin)</h1>
+
+    <ul>
+        <li routerLinkActive="active" >
+            <a [routerLink]="['/admin/dashboard']" >
+              Home page
+            </a>
+        </li>
+        <li routerLinkActive="active" >
+          <a [routerLink]="['/admin/create']" >
+            Create a post
+          </a>
+        </li>
+        <li>
+          <a href="#" (click)="logout($event)" >
+            LogOut
+          </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
