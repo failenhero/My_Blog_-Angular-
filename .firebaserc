@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "yury-blog": {
+      "hosting": {
+        "blog": [
+          "yury-blog"
+        ]
+      }
+    }
+  }
+}

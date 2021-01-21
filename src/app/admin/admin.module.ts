@@ -10,6 +10,10 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
 import { CreatePageComponent } from './create-page/create-page.component';
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { SharedModule } from "../shared/components/shared.module";
+import { SignupPageComponent } from './signup-page/signup-page.component';
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/admin/login']);
 
 @NgModule({
   declarations: [
@@ -17,7 +21,8 @@ import { SharedModule } from "../shared/components/shared.module";
     LoginPageComponent,
     DashboardPageComponent,
     CreatePageComponent,
-    EditPageComponent
+    EditPageComponent,
+    SignupPageComponent
   ],
   imports: [
     CommonModule,
@@ -28,11 +33,13 @@ import { SharedModule } from "../shared/components/shared.module";
       {
         path: '', component: AdminLayoutComponent, children:[
           {path: '', redirectTo: '/admin/login', pathMatch: 'full'},
-          {path: 'login', component: LoginPageComponent},
-          {path: 'create', component: CreatePageComponent},
-          {path: 'dashboard', component: DashboardPageComponent},
-          {path: 'post/:id/edit', component: EditPageComponent}
-        ]
+          {path: 'signup', component: SignupPageComponent},
+          {path: 'login', component: LoginPageComponent },
+          {path: 'create', component: CreatePageComponent, canActivate: [AngularFireAuthGuard]},
+          {path: 'dashboard', component: DashboardPageComponent, canActivate: [AngularFireAuthGuard]},
+          {path: 'post/:id/edit', component: EditPageComponent, canActivate: [AngularFireAuthGuard]}
+        ],
+        data: {authGuardPipe: redirectUnauthorizedToLogin}
       }
     ])
   ],

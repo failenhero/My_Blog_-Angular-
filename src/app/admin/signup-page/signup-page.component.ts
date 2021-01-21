@@ -5,13 +5,13 @@ import { AuthService } from '../shared/components/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+  selector: 'app-signup-page',
+  templateUrl: './signup-page.component.html',
+  styleUrls: ['./signup-page.component.scss']
 })
-export class LoginPageComponent implements OnInit {
+export class SignupPageComponent implements OnInit {
 
-  loginForm: FormGroup | any;
+  signupForm: FormGroup | any;
 
   constructor(
     private authService: AuthService,
@@ -19,7 +19,7 @@ export class LoginPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
+    this.signupForm = new FormGroup({
       email: new FormControl(null, [
       Validators.email,
       Validators.required
@@ -31,20 +31,20 @@ export class LoginPageComponent implements OnInit {
     })
   }
 
-  loginSubmit(){
-    if(this.loginForm.invalid){
+  createSubmit(){
+    if(this.signupForm.invalid){
       alert('Form you try to submit is invalid!')
       return
     }
 
-    const user: User = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password
+    const newUser: User = {
+      email: this.signupForm.value.email,
+      password: this.signupForm.value.password
     }
 
-    this.authService.login(user);
+    this.authService.createUser(newUser)
 
-    this.loginForm.reset();
-
+    this.signupForm.reset()
   }
+
 }

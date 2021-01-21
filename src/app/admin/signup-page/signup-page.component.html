@@ -1,0 +1,57 @@
+<form class="card" [formGroup]="signupForm" (ngSubmit)="createSubmit()">
+
+  <h2>
+    To create a user enter new email and password:
+  </h2>
+
+  <div class="form-control">
+
+    <label for="email">Email:</label>
+    <input id="email" type="email" formControlName="email">
+
+    <div
+      class="validation"
+      *ngIf="signupForm.get('email').invalid && signupForm.get('email').touched">
+
+      <small *ngIf="signupForm.get('email').errors.required">
+        E-mail is required
+      </small>
+      <small *ngIf="signupForm.get('email').errors.email">
+        Please, enter correct e-mail adress
+      </small>
+
+    </div>
+
+  </div>
+
+  <div class="form-control">
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" formControlName="password">
+
+    <div
+      class="validation"
+      *ngIf="signupForm.get('password').invalid && signupForm.get('password').touched">
+
+      <small *ngIf="signupForm.get('password').errors.required">
+        Password is required
+      </small>
+      <small *ngIf="signupForm.get('password').errors.minlength">
+        Password must contain not less than {{signupForm.get('password').errors.minlength.requiredLength}} symbols
+      </small>
+    </div>
+
+  </div>
+
+  <div class="signUpFooter">
+    <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid">
+      Create new user
+    </button>
+
+    <a [routerLink]="['/admin/login']" >
+      Back to login page
+    </a>
+  </div>
+
+</form>
+
