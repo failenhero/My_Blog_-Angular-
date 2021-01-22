@@ -12,9 +12,10 @@ import { Router } from '@angular/router';
 export class SignupPageComponent implements OnInit {
 
   signupForm: FormGroup | any;
+  submitted: boolean = false;
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router
   ) { }
 
@@ -37,6 +38,8 @@ export class SignupPageComponent implements OnInit {
       return
     }
 
+    this.submitted = true;
+
     const newUser: User = {
       email: this.signupForm.value.email,
       password: this.signupForm.value.password
@@ -44,7 +47,8 @@ export class SignupPageComponent implements OnInit {
 
     this.authService.createUser(newUser)
 
-    this.signupForm.reset()
+    this.signupForm.reset();
+    this.submitted = false;
   }
 
 }

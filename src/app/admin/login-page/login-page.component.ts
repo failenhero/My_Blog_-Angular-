@@ -12,9 +12,10 @@ import { Router } from '@angular/router';
 export class LoginPageComponent implements OnInit {
 
   loginForm: FormGroup | any;
+  submitted: boolean = false;
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router
   ) { }
 
@@ -37,6 +38,8 @@ export class LoginPageComponent implements OnInit {
       return
     }
 
+    this.submitted = true;
+
     const user: User = {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
@@ -44,7 +47,8 @@ export class LoginPageComponent implements OnInit {
 
     this.authService.login(user);
 
-    this.loginForm.reset();
+    this.loginForm.get('password').reset();
+    this.submitted = false;
 
   }
 }
