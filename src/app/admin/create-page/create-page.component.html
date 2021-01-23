@@ -1,1 +1,45 @@
-<p>create-page works!</p>
+<form [formGroup]="createForm" (ngSubmit)="createSubmit()">
+  <h1>
+    Create your new post
+  </h1>
+
+  <div class="form-control">
+    <label>Post's author: {{email}}</label>
+
+  </div>
+
+  <div class="form-control">
+
+    <label for="title">Title:</label>
+    <input id="title" type="text" formControlName="title">
+
+    <div
+      class="validation"
+      *ngIf="createForm.get('title').invalid && createForm.get('title').touched">
+
+      <small *ngIf="createForm.get('title').errors.required">
+        Title is required. Please, enter a title for your post.
+      </small>
+
+    </div>
+
+  </div>
+
+  <div class="form-control">
+    <label>Content:</label>
+
+    <quill-editor formControlName="text">
+
+    </quill-editor>
+
+  </div>
+
+  <button
+    class="btn btn-block btn-dark"
+    type="submit"
+    [disabled]="createForm.invalid" >
+    Create post
+  </button>
+
+</form>
+
